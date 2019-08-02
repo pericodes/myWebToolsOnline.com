@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Generic Index</title>
+	<!-- metaTags -->
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    {% block meta_autor %}
+	<meta name="author" content="" />
+	{% endblock %}
+	<meta name="robots" content="index"/>
+
+    {% block meta_description %}
+	<meta name="description" content=""/>
+	{% endblock %}
+    {% block meta_keywords %}
+	<meta name="keywords" content=""/>
+	{% endblock %}
+
+	{% block bootstrap_css %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	{% endblock %}
+    {% block jquery %}
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {% endblock %}
+    {% block bootstrap_js %}
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {% endblock %}
+    {% block css_base %}
+    <link rel="stylesheet" type="text/css" href="public/css/base.css"/>
+    {% endblock %}
+    {% block fontawesome %}
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    {% endblock %}
+    {% block css %}{% endblock %}
+    {% block javaScriptStart %}{% endblock %}
+</head>
+
+<body>
+	<header>
+		<div>
+			<h1>Generic Project</h1>
+		</div>
+		<section id="menu" class="row d-flex justify-content-center bg-dark">
+			<nav class="navbar navbar-expand-md bg-dark navbar-dark col-9">
+			  <a class="navbar-brand" href="#">Home</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+			    <ul class="navbar-nav">
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Delete my account</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Link</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Link</a>
+			      </li>    
+			    </ul>
+			  </div>  
+			</nav>
+		</section>
+	</header>
+	<div class="row d-flex justify-content-center">
+		<main class="col-sm-7 card">
+			{% block main %}{% endblock %}
+		</main>
+		<aside class="col-sm-3 card">
+			<div class="card-body">
+				<section id="generic-login" class="border-bottom  pb-3">
+					<form>
+					  <div class="form-group">
+					    <label for="exampleInputEmail1">Email address</label>
+					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+					    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputPassword1">Password</label>
+					    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					  </div>
+					  <div class="form-check">
+					    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+					    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+					  </div>
+					  <button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</section>
+
+			</div>
+		</aside>
+	</div>
+	{% block javaScriptEnd %}{% endblock %}
+</body>
+</html>
