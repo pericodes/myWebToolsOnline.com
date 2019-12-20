@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% set serverless = true %}
+{% block main %}
+<div class="card-body">
+    <div class="form-group">
+	    <label for="text-input">Text</label>
+	    <textarea class="form-control" id="text-input" onkeyup="count()" rows="5"></textarea>
+	</div>
+	<div class="form-group d-flex justify-content-around">
+	    <button type="button" class="btn btn-warning col-sm-4" onclick="clearInput()">Clear</button>
+	</div>
+	<div class="form-group row">
+	    <label for="toSentenceCase" class="col-sm-3 col-form-label">Sentence Case (Foo boo)</label>
+	    <div class="col-sm-7">
+	      <textarea type="text" class="form-control" id="toSentenceCase" rows="1"></textarea>
+	    </div>
+	    <button type="button" class="btn btn-secondary col-sm-2" onclick="copyToClipboard('toSentenceCase')">Copy</button>
+  	</div>
+	<div class="form-group row">
+	    <label for="toCapitalCase" class="col-sm-3 col-form-label">Capital Case (Foo Boo)</label>
+	    <div class="col-sm-7">
+	      <textarea type="text" class="form-control" id="toCapitalCase" rows="1"></textarea>
+	    </div>
+	    <button type="button" class="btn btn-secondary col-sm-2" onclick="copyToClipboard('toCapitalCase')">Copy</button>
+  	</div>
+	<div class="form-group row">
+	    <label for="toLowerCase" class="col-sm-3 col-form-label">Lower Case (foo boo)</label>
+	    <div class="col-sm-7">
+	      <textarea type="text" class="form-control" id="toLowerCase" rows="1"></textarea>
+	    </div>
+	    <button type="button" class="btn btn-secondary col-sm-2" onclick="copyToClipboard('toLowerCase')">Copy</button>
+  	</div>
+	<div class="form-group row">
+	    <label for="toUpperCase" class="col-sm-3 col-form-label">Upper Case (FOO BOO)</label>
+	    <div class="col-sm-7">
+	      <textarea type="text" class="form-control" id="toUpperCase" rows="1"></textarea>
+	    </div>
+	    <button type="button" class="btn btn-secondary col-sm-2" onclick="copyToClipboard('toUpperCase')">Copy</button>
+  	</div>
+  	<div class="form-group row">
+	    <label for="reverse" class="col-sm-3 col-form-label">Reverse (FoO BOo = oOB OoF)</label>
+	    <div class="col-sm-7">
+	      <textarea type="text" class="form-control" id="reverse" rows="1"></textarea>
+	    </div>
+	    <button type="button" class="btn btn-secondary col-sm-2" onclick="copyToClipboard('reverse')">Copy</button>
+  	</div>
+</div>
+{% endblock %}
+{% block javaScriptEnd %}
+<script type="text/javascript">
+
+	String.prototype.toCapitalCase = function() {
+		var regEx = /([a-z]*)([^a-z]*)([\s\S]*)/i;
+		var matchArray = regEx.exec(this);
+		var text = '';
+		
+		while (matchArray) {
+			text += matchArray[1].charAt(0).toUpperCase() + matchArray[1].slice(1).toLowerCase() + matchArray[2];
+			temp = matchArray[3];
+			if (matchArray[3]) {
+				matchArray = regEx.exec(matchArray[3]);
+			} else {
+				matchArray = false;
+			}
+			
+		}
+		if (window.temp) {
+			text +=temp.charAt(0).toUpperCase() + temp.slice(1).toLowerCase()
+		}
+		return text;
+	}
+	String.prototype.toSentenceCase = function() {
+		var regEx = /([^\.?!]*)([\.?!\s]*)([\s\S]*)/;
+		var matchArray = regEx.exec(this);
+		var temp;
+		var text = '';
+		
+		while (matchArray) {
+			text += matchArray[1].charAt(0).toUpperCase() + matchArray[1].slice(1).toLowerCase() + matchArray[2];
+			temp = matchArray[3];
+			if (matchArray[3]) {
+				matchArray = regEx.exec(matchArray[3]);
+			} else {
+				matchArray = false;
+			}
+		}
+		if (temp) {
+			text +=temp.charAt(0).toUpperCase() + temp.slice(1).toLowerCase()
+		}
+		return text;
+	}
+	String.prototype.reverse = function() {
+		return this.split("").reverse().join("");
+	}
+	function count() {
+		let text = document.getElementById('text-input').value;
+		let toSentenceCase = document.getElementById('toSentenceCase');
+		let toCapitalCase = document.getElementById('toCapitalCase');
+		let toUpperCase = document.getElementById('toUpperCase');
+		let reverse = document.getElementById('reverse');
+		//console.log(characters);
+		//console.log(text.value);
+		toSentenceCase.value 	= text.toSentenceCase();
+		toCapitalCase.value 	= text.toCapitalCase();
+		toLowerCase.value 		= text.toLowerCase();
+		toUpperCase.value 		= text.toUpperCase();
+		reverse.value			= text.reverse();
+	}
+</script>
+{% endblock %}

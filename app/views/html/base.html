@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Generic Index</title>
+    
+	<title>{% block title %}My web tools online{% endblock %}</title>
+	
 	<!-- metaTags -->
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-    {% block meta_autor %}
-	<meta name="author" content="" />
-	{% endblock %}
+	<meta name="author" content="{% block meta_autor %}Pericodes{% endblock %}" />
 	<meta name="robots" content="index"/>
-
-    {% block meta_description %}
-	<meta name="description" content=""/>
-	{% endblock %}
-    {% block meta_keywords %}
-	<meta name="keywords" content=""/>
-	{% endblock %}
-
+	<meta name="description" content="{% block meta_description %}{% endblock %}"/>
+	<meta name="keywords" content="{% block meta_keywords %}{% endblock %}"/>
 	{% block bootstrap_css %}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	{% endblock %}
@@ -39,24 +33,27 @@
 <body>
 	<header>
 		<div>
-			<h1>Generic Project</h1>
+			<div class="row justify-content-center">
+				<h1 id="title" class="col-9">My web tools Online</h1>
+			</div>
+			
 		</div>
 		<section id="menu" class="row d-flex justify-content-center bg-dark">
 			<nav class="navbar navbar-expand-md bg-dark navbar-dark col-9">
-			  <a class="navbar-brand" href="#">Home</a>
+			  <a class="navbar-brand" href="/">Home</a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 			  <div class="collapse navbar-collapse" id="collapsibleNavbar">
 			    <ul class="navbar-nav">
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Delete my account</a>
+			        <a class="nav-link" href="#">What's mean serverless?</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Link</a>
+			        <a class="nav-link" href="#">Supports</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Link</a>
+			        <a class="nav-link" href="#">Contact</a>
 			      </li>    
 			    </ul>
 			  </div>  
@@ -67,30 +64,32 @@
 		<main class="col-sm-7 card">
 			{% block main %}{% endblock %}
 		</main>
-		<aside class="col-sm-3 card">
+		<aside class="col-sm-2 card">
 			<div class="card-body">
-				<section id="generic-login" class="border-bottom  pb-3">
-					<form>
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">Email address</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-					    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputPassword1">Password</label>
-					    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-					  </div>
-					  <div class="form-check">
-					    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-					    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-					  </div>
-					  <button type="submit" class="btn btn-primary">Submit</button>
-					</form>
+				{% if serverless %}
+				<section id="Serverles" class="border-bottom  pb-3">
+					<h2>Serverless</h2>
+					<p>Serverless means that this page can works without internet connection.</p>
 				</section>
+				{% else %}
+				{% endif %}
+				<section id="patreon" class="border-bottom  pb-3">
+					<h2>Please, support this project</h2>
 
+				</section>
 			</div>
 		</aside>
 	</div>
-	{% block javaScriptEnd %}{% endblock %}
+	<footer class="row justify-content-center">
+		<div class="col-9  card">
+			<section class="card-body" id="credits">
+				<p>Make with love by <a href="https://github.com/pericodes">Pericodes</a></p>
+			</section>
+		</div>
+	</footer>
+	<script type="text/javascript" src="./public/js/comun.js"></script>
+	{% block javaScriptEnd %}
+
+	{% endblock %}
 </body>
 </html>

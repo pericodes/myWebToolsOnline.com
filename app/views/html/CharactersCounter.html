@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% set serverless = true %}
+{% block style %}
+#reset-button{
+		
+}
+{% endblock %}
+
+{% block title %}Characters Counter online{% endblock %}
+{% block meta_description %}In this page you can couter the characters in a text.{% endblock %}
+{% block meta_keywords %}
+{% endblock %}
+{% block main %}
+<div class="card-body">
+<div class="form-group">
+  <label for="text-input">Text</label>
+  <textarea class="form-control" id="text-input" onkeyup="count()" rows="5"></textarea>
+</div>
+<div class="form-group d-flex justify-content-center">
+  <button type="button" class="btn btn-warning form-control" id="clearInput-button" onclick="clearInput()">Reset</button>
+</div>
+<section id="result" class="card-body">
+	<div class="form-group row">
+	    <label for="characters" class="col-sm-3 col-form-label">Characters</label>
+	    <div class="col-sm-3">
+	      <input type="text" readonly class="form-control" id="characters" value="0">
+	    </div>
+	    <label for="words" class="col-sm-3 col-form-label">Words</label>
+	    <div class="col-sm-3">
+	      <input type="text" readonly class="form-control" id="words" value="0">
+	    </div>
+  	</div>
+  	<div class="form-group row border-bottom pb-4">
+  		<label for="paragraphs" class="col-sm-3 col-form-label">Paragraphs</label>
+	    <div class="col-sm-3">
+	      <input type="text" readonly class="form-control" id="paragraphs" value="0">
+	    </div>
+	    <label for="spaces" class="col-sm-3 col-form-label">Spaces</label>
+	    <div class="col-sm-3">
+	      <input type="text" readonly class="form-control" id="spaces" value="0">
+	    </div>
+  	</div>
+  	<div>
+  		<div class="row">
+  			<button type="button" class="btn btn-info col-12 dropdown-toggle mb-2" id="showStatistics-button" data-toggle="collapse" data-target="#statistics" aria-expanded="false" aria-controls="statistics">Show statistics</button>
+  			<div class="collapse card card-body col-12" id="statistics">
+  				<p>a = juña</p>
+  			</div>
+  		</div>
+  		<div class="row">
+  			
+  			
+  		</div>
+  	</div>
+</section>
+</div>
+{% endblock %}
+{% block javaScriptEnd %}
+<script type="text/javascript">
+	function reset() {
+		let text = document.getElementById('text-input').value = "";
+		count();
+	}
+	function count() {
+		let text = document.getElementById('text-input').value;
+		let characters = document.getElementById('characters');
+		let words = document.getElementById('words');
+		let paragraphs = document.getElementById('paragraphs');
+		let spaces = document.getElementById('spaces');
+		//console.log(characters);
+		//console.log(text.value);
+		characters.value = text.length;
+
+		/* words */
+		let regex = /\w+/gm;
+		words.value = ((text || '').match(regex) || []).length;
+
+		/* paragraphs */
+		regex = /(.+?\n\n|.+?$)/gm;
+		paragraphs.value = ((text || '').match(regex) || []).length;
+
+		/* spaces */
+		regex = / /gm;
+		spaces. value = ((text || '').match(regex) || []).length;
+	}
+	
+</script>
+{% endblock %}
