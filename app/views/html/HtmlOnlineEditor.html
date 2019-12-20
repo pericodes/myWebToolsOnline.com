@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% set serverless = true %}
+{% block title %}
+HTML Online Editor
+{% endblock %}
+{% block meta_description %}
+Here you have a HTML Online Editor where you can write like in a Word but with html format. 
+{% endblock %}
+{% block meta_keywords %}
+word, html, editor online
+{% endblock %}
+{% block css %}
+<style type="text/css">
+    #aux {
+        margin-top: 2em; 
+    }
+    #result{
+        min-height: 10em; 
+    }
+    .ql-toolbar {
+        margin-top: 1em; 
+    }
+
+    .ql-editor {
+        min-height: 10em;  
+    }
+
+</style>
+{% endblock %}
+{% block main %}
+<div class="card-body">
+        <h1>Editor:</h1>
+        <div id="editor"></div>
+        <div id="aux">
+            <div class="row justify-content-between align-items-center">
+            <h1 class="col-sm-3">Result:</h1>
+            <div class="col-sm-2 d-flex justify-content-between">
+                <div>
+                    <button type="button" class="btn btn-warning" onclick="reset()">Reset</button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success" onclick="copyToClipboard('result')">Copy</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+            <textarea class="form-control" id="result" readonly=""></textarea>
+        </div>
+	</div>
+{% endblock %}
+{% block javaScriptEnd %}
+ <!-- Include stylesheet -->
+ <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+ <!-- Include the Quill library -->
+ <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+ <script type="text/javascript" src="./js/comun.js"></script>
+ <!-- Initialize editor with toolbar -->
+ <script>
+     function reset() {
+         document.getElementsByClassName('ql-editor')[0].innerHTML = ""; 
+         document.getElementById('result').value = ""; 
+     }
+      String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+      };
+      /*
+         var toolbarOptions = [
+       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+       ['blockquote', 'code-block'],
+       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+       [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+       [{ 'align': [] }],
+       ['clean']                                         // remove formatting button
+     ];
+     */
+
+     var toolbarOptions = [
+       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+       ['blockquote', 'code-block'],
+
+       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+       [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+       [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       [{ 'direction': 'rtl' }],                         // text direction
+
+       [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+       [{ 'font': [] }],
+       [{ 'align': [] }],
+
+       ['clean']                                         // remove formatting button
+     ];
+     var quill = new Quill('#editor', {
+       modules: {
+         toolbar: toolbarOptions
+       },
+       theme: 'snow'
+     });
+     document.onkeyup = function (){
+       document.getElementById('result').innerText = ""; 
+       document.getElementById('result').value = document.getElementsByClassName('ql-editor')[0].innerHTML.replaceAll("</p>","</p>\n").replaceAll("</h1>","</h1>\n");
+       //console.log(text); 
+     }
+ </script>
+
+{% endblock %}
+
+{% block credits %}
+<p>Make by <a href="https://github.com/quilljs/quill">Quilljs</a></p>
+<p>Added with love by <a href="https://github.com/pericodes">Pericodes</a></p>
+{% endblock %}
+			

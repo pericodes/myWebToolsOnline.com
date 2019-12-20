@@ -31,7 +31,6 @@
 
 	switch ($element) {
 		case 'strings':
-			
 			switch ($name) {
 				case 'characterscounter':
 					render("CharactersCounter.html");
@@ -51,7 +50,17 @@
 			}
 
 			break;
-		
+		case 'developing':
+			switch ($name) {
+				case 'htmlonlineeditor':
+					render("HtmlOnlineEditor.html");
+					break;
+				default:
+					render("index.html");
+					break;
+			}
+
+			break;
 		default:
 			render("index.html");
 			break;
