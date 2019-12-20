@@ -1,0 +1,19 @@
+#In development
+#php_flag  display_errors        on
+#php_value error_reporting       2039
+#php_flag display_startup_errors on
+
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+#RewriteRule ^ app/controllers/tools/ControllerFactory.php [QSA]
+RewriteRule ^(?!public).+ index.php [QSA]
+#RewriteEngine On
+#RewriteBase /
+#RewriteRule ^index\.php$ - [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
