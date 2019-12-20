@@ -53,9 +53,13 @@ word, html, editor online
  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
  <!-- Include the Quill library -->
  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
- <script type="text/javascript" src="./js/comun.js"></script>
+
  <!-- Initialize editor with toolbar -->
  <script>
+	function copyToClipboard(element) {
+		document.getElementById(element).select();
+		document.execCommand("copy");
+	}
      function reset() {
          document.getElementsByClassName('ql-editor')[0].innerHTML = ""; 
          document.getElementById('result').value = ""; 
