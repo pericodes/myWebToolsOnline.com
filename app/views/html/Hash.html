@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% set serverless = true %}
+{% block title %}
+Hash generator online. 
+{% endblock %}
+{% block meta_description %}
+In this page you can find some hash functions, like: crc 16, crc 32, md 2, md 4, md 5, sha 1, sha 256, sha 384, sha 512, sha 512/224, sha 512/256, sha 3/224, sha 3/256, sha 3/384, sha 3/512, keccak 224, keccak 256, keccak 384, keccak 512, Shake 128/256, Shake 256/512
+{% endblock %}
+{% block meta_keywords %}
+hash, crc16, crc32, md2, md4, md5, sha1, sha256, sha384, sha512, sha512/224, sha512/256, sha3/224, sha3/256, sha3/384, sha3/512, keccak224, keccak256, keccak384, keccak512, Shake 128/256, Shake 256/512
+{% endblock %}
+{% block css %}
+<style>
+textarea::placeholder {
+    font-size: xx-large;
+}
+</style>
+{% endblock %}
+{% block main %}
+<section class="card-body">
+    <div class="form-group">
+	    <label for="text-input">Input</label>
+	    <textarea class="form-control" id="text-input" rows="5" onkeyup=changeText() placeholder="Write or drop your file here."></textarea>
+    </div>
+</section>
+<section class="form-group row border-bottom pb-4 card-body d-flex align-items-center">
+    <select class="form-control col-sm-2" id="hashMethod" onchange="generateHash()">
+        <option value="crc16">CRC 16</option>
+        <option value="crc32">CRC 32</option>
+        <option value="md2">MD 2</option>
+        <option value="md4">MD 4</option>
+        <option value="md5">MD 5</option>
+        <option value="sha1">SHA 1</option>
+        <option value="sha224">SHA 224</option>
+        <option value="sha256" selected="">SHA 256</option>
+        <option value="sha384">SHA 384</option>
+        <option value="sha512">SHA 512</option>
+        <option value="sha512_224">SHA 512/224</option>
+        <option value="sha512_256">SHA 512/256</option>
+        <option value="sha3_224">SHA 3/224</option>
+        <option value="sha3_256">SHA 3/256</option>
+        <option value="sha3_384">SHA 3/384</option>
+        <option value="sha3_512">SHA 3/512</option>
+        <option value="keccak224">Keccak 224</option>
+        <option value="keccak256">Keccak 256</option>
+        <option value="keccak384">Keccak 384</option>
+        <option value="keccak512">Keccak 512</option>
+        <option value="shake128">Shake 128</option>
+        <option value="shake256">Shake 256</option>
+    </select>
+    <div class="col-sm-8">
+        <textarea type="text" readonly class="form-control" id="result" value="" rows="3"></textarea>
+    </div>
+    <div class="col-sm-2 row d-flex justify-content-between">
+        <div class="col-lg-6">
+            <button type="button" class="btn btn-success" onclick="copyToClipboard('result')">Copy</button>
+        </div>
+        <div class="col-lg-6">
+            <button type="button" class="btn btn-warning" onclick="clearInput()">Reset</button>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block javaScriptStart %}
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/comun.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/crc.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/md2.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/md4.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/md5.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/sha1.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/sha256.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/sha512.js"></script>
+<script type="text/javascript" src="http://myWebToolsOnline.com/myWebToolsOnline.com/public/js/security/sha3.js"></script>
+{% endblock %}
+{% block javaScriptEnd %}
+<script type="text/javascript">
+let dropbox = document.getElementById("text-input");
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false);
+
+function dragenter(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function dragover(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function drop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    clearInput(); 
+    let files = e.dataTransfer.files; // FileList object.
+    let reader = new FileReader();
+    
+    reader.onload = function(e) {
+        
+        changeText(reader.result);
+        document.getElementById("text-input").setAttribute("placeholder", "File: " + files[0].name);
+    }
+    reader.readAsArrayBuffer(files[0])
+}
+
+function clearInput() {
+	document.getElementById('text-input').value = "";
+	document.getElementById('result').value = "";
+}
+var text; 
+
+function changeText(textInput){
+    if(textInput == undefined){
+        document.getElementById("text-input").setAttribute("placeholder", "Write or drop your file here.");
+        text = document.getElementById("text-input").value;
+    }else{
+        text = textInput; 
+    }
+    generateHash(); 
+}
+
+function generateHash(){
+    //let sha256 = new sjcl.hash.sha256(); 
+    //sha256.update(document.getElementById("text-input").value);
+    let method = document.getElementById("hashMethod").value;
+     
+    switch (method) {
+        case "crc16":
+            document.getElementById("result").value = crc16(text); 
+            break;
+        case "crc32":
+            document.getElementById("result").value = crc32(text); 
+            break;
+        case "md2":
+            document.getElementById("result").value = md2(text); 
+            break;
+        case "md4":
+            document.getElementById("result").value = md4(text); 
+            break;
+        case "md5":
+            document.getElementById("result").value = md5(text); 
+            break;
+        case "sha1":
+            document.getElementById("result").value = sha1(text); 
+            break;
+        case "sha224":
+            document.getElementById("result").value = sha224(text); 
+            break;
+        case "sha256":
+            document.getElementById("result").value = sha256(text); 
+            break;
+        case "sha384":
+            document.getElementById("result").value = sha384(text); 
+            break;
+        case "sha512":
+            document.getElementById("result").value = sha512(text); 
+            break;
+        case "sha512_224":
+            document.getElementById("result").value = sha512_224(text); 
+            break;
+        case "sha512_256":
+            document.getElementById("result").value = sha512_256(text); 
+            break;
+        case "sha3_224":
+            document.getElementById("result").value = sha3_224(text); 
+            break;
+        case "sha3_256":
+            document.getElementById("result").value = sha3_256(text); 
+            break;
+        case "sha3_384":
+            document.getElementById("result").value = sha3_384(text); 
+            break;
+        case "sha3_512":
+            document.getElementById("result").value = sha3_512(text); 
+            break;
+        case "keccak224":
+            document.getElementById("result").value = keccak224(text); 
+            break;
+        case "keccak256":
+            document.getElementById("result").value = keccak256(text); 
+            break;
+        case "keccak384":
+            document.getElementById("result").value = keccak384(text); 
+            break;
+        case "keccak512":
+            document.getElementById("result").value = keccak512(text); 
+            break;
+        case "shake128":
+            document.getElementById("result").value = shake128(text, 256); 
+            break;
+        case "shake256":
+            document.getElementById("result").value = shake256(text, 512); 
+            break;        
+        default:
+            break;
+    }
+}
+
+
+</script>
+{% endblock %}
+{% block credits %}
+<p>Make with love by <a href="https://github.com/emn178">Emn178</a></p>
+<p>Added by <a href="https://github.com/pericodes">Pericodes</a></p>
+{% endblock %}

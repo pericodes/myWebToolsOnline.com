@@ -61,6 +61,17 @@
 			}
 
 			break;
+		case 'security':
+			switch ($name) {
+				case 'hash':
+					render("Hash.html");
+					break;
+				default:
+					render("index.html");
+					break;
+			}
+
+			break;
 		default:
 			render("index.html");
 			break;
