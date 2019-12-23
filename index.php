@@ -66,6 +66,9 @@
 				case 'hash':
 					render("Hash.html");
 					break;
+				case 'passwordgenerator':
+					render("PasswordOnlineGenerator.html");
+					break;
 				default:
 					render("index.html");
 					break;
